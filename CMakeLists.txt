@@ -1,4 +1,21 @@
 cmake_minimum_required(VERSION 3.16...3.26)
+project(obs_plugin_telegram)
+
+find_package(obs REQUIRED)
+
+add_library(${PROJECT_NAME} MODULE
+    src/PluginMain.cpp
+    src/TelegramIntegration.cpp
+    src/TwitchIntegration.cpp
+)
+
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ${obs_INCLUDE_DIRS}
+)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    ${obs_LIBRARIES}
+)
 
 include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/common/bootstrap.cmake" NO_POLICY_SCOPE)
 
@@ -11,11 +28,7 @@ include(compilerconfig)
 include(defaults)
 include(helpers)
 
-add_library(${CMAKE_PROJECT_NAME} MODULE
-    src/PluginMain.cpp
-    src/TelegramIntegration.cpp
-    src/TwitchIntegration.cpp
-)
+add_library(${CMAKE_PROJECT_NAME} MODULE)
 
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     ${obs_INCLUDE_DIRS}
