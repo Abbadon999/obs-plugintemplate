@@ -11,7 +11,15 @@ include(compilerconfig)
 include(defaults)
 include(helpers)
 
-add_library(${CMAKE_PROJECT_NAME} MODULE)
+add_library(${CMAKE_PROJECT_NAME} MODULE
+    src/PluginMain.cpp
+    src/TelegramIntegration.cpp
+    src/TwitchIntegration.cpp
+)
+
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+    ${obs_INCLUDE_DIRS}
+)
 
 find_package(libobs REQUIRED)
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE OBS::libobs)
